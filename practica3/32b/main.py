@@ -23,7 +23,7 @@ class main():
 
     # inserta un evento semilla en la agenda y arranca
     inicia=("INICIA",None)
-    seed = Event(inicia, 0.0, 6, 1)
+    seed = Event(inicia, 0.0, 7, 1)
     experiment.init(seed)
     experiment.run()
     fin = time.time()

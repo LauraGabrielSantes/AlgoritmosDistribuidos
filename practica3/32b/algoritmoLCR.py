@@ -15,7 +15,6 @@ class AlgoritmoLCR(Model):
     print ("Inicio funciones", self.id)
     self.sucesor = self.neighbors[0]
     print ("Mi vecino es:", self.sucesor)
-    #self.estado="dormido"
     self.lider=0
     self.CandidaturaLanzada=False
 
