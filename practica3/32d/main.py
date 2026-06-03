@@ -14,7 +14,7 @@ class main():
         raise SystemExit(1)
     
     inicio = time.time()
-    experiment = Simulation(sys.argv[1], 20)  
+    experiment = Simulation(sys.argv[1], 100)  
     m = AlgoritmoLCR()
     # asocia un pareja proceso/modelo con cada nodo de la grafica
     for i in range(1,len(experiment.graph)+1):
