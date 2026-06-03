@@ -1,5 +1,3 @@
-# "main()"
-# ----------------------------------------------------------------------------------------
 # construye una instancia de la clase Simulation recibiendo como parametros el nombre del 
 # archivo que codifica la lista de adyacencias de la grafica y el tiempo max. de simulacion
 import sys

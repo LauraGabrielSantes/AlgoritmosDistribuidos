@@ -1,5 +1,3 @@
-# "main()"
-# ----------------------------------------------------------------------------------------
 # construye una instancia de la clase Simulation recibiendo como parametros el nombre del 
 # archivo que codifica la lista de adyacencias de la grafica y el tiempo max. de simulacion
 import sys
@@ -14,7 +12,7 @@ class main():
         raise SystemExit(1)
     
     inicio = time.time()
-    experiment = Simulation(sys.argv[1], 20)  
+    experiment = Simulation(sys.argv[1], 100)  
     m = AlgoritmoLCR()
     # asocia un pareja proceso/modelo con cada nodo de la grafica
     for i in range(1,len(experiment.graph)+1):
