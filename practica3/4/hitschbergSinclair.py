@@ -72,9 +72,8 @@ class AlgoritmoHS(Model):
        self.transmit(newevent)
     elif event.getName()[0] == "ELECTO":
       self.ronda=-1
-      self.victorias=0
       self.lider = event.getName()[1]
-      print ("[", self.id,"]: El lider es: ", self.lider,  ", t = self.clock,\n")
+      print ("[", self.id,"]: El lider es: ", self.lider,  ", t = ",self.clock,"\n")
       if (self.id != self.lider):
         electo=["ELECTO", self.lider, None]
         #Se envía por el lado contrario
