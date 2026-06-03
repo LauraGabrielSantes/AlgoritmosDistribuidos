@@ -21,30 +21,32 @@ class AlgoritmoLCR(Model):
   def receive(self, event):
     # Aqui se definen las acciones concretas que deben ejecutarse cuando se
     # recibe un evento
-    if event.getName()[0] == "INICIA":
+    tuplaRecibida=event.getName()
+    nodoRecibido=tuplaRecibida[1]
+    if tuplaRecibida[0] == "INICIA":
        print ("[", self.id, "]: recibi INICIA en t=",self.clock," \n")
        self.CandidaturaLanzada=True
        self.enviaCandidatura(self.id)
-    elif  event.getName()[0] == "CANDIDATURA" :
+    elif  tuplaRecibida[0] == "CANDIDATURA" :
        AlgoritmoLCR.contadorMensajes += 1
-       if (self.id < event.getName()[1]):
-          print("[", self.id, "]: Reenvío la candidatura de ", event.getName()[1], " en t= ", self.clock,"\n" )
-          self.enviaCandidatura(event.getName()[1])       
-       elif (self.id > event.getName()[1]):
-          if (self.CandidaturaLanzada==False):
-            print("[", self.id, "]:He recibido la candidatura de ", event.getName()[1], " en t= ", self.clock,"\n" )
-            self.CandidaturaLanzada==True
+       if (self.id < nodoRecibido):
+          print("[", self.id, "]: Reenvío la candidatura de ", nodoRecibido, " en t= ", self.clock,"\n" )
+          self.enviaCandidatura(nodoRecibido)       
+       elif (self.id > nodoRecibido):
+          if (not self.CandidaturaLanzada):
+            print("[", self.id, "]:He recibido la candidatura de ", nodoRecibido, " en t= ", self.clock,"\n" )
+            self.CandidaturaLanzada=True
             self.enviaCandidatura(self.id)
           else:
-             print("[", self.id, "]: Soy un nodo despierto y detengo la candidatura de ", event.getName()[1], " en t= ", self.clock,"\n" )             
-       elif (self.id == event.getName()[1]):
+             print("[", self.id, "]: Soy un nodo despierto y detengo la candidatura de ", nodoRecibido, " en t= ", self.clock,"\n" )             
+       elif (self.id == nodoRecibido):
           print("[", self.id, "]: ¡He recibido mi candidatura en t= ", self.clock," !\n" )
           self.enviaElecto(self.id)
-    elif event.getName()[0] == "ELECTO" :
+    elif tuplaRecibida[0] == "ELECTO" :
        AlgoritmoLCR.contadorMensajes +=1
-       if(self.id != event.getName()[1]):
-          print("[",self.id,"]: ", event.getName()[1] ," ha ganado la elección en", self.clock," \n")
-          self.enviaElecto(event.getName()[1])
+       if(self.id != nodoRecibido):
+          print("[",self.id,"]: ", nodoRecibido ," ha ganado la elección en", self.clock," \n")
+          self.enviaElecto(nodoRecibido)
        else:
           print("[", self.id,"]: He sido electo en ", self.clock,"\n")
           
