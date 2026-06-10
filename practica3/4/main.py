@@ -27,5 +27,5 @@ class main():
     experiment.init(seed)
     experiment.run()
     fin = time.time()
-    #print("Se han generado ", AlgoritmoHS.contadorMensajes," mensajes en total \n")
-    #print("Tiempo de ejecución:", fin-inicio, "segundos \n")
+    print("Se han generado ", AlgoritmoHS.contadorMensajes," mensajes en total \n")
+    print("Tiempo de ejecución:", fin-inicio, "segundos \n")

@@ -5,10 +5,9 @@ from process import Process
 from simulator import Simulator
 from simulation import Simulation
 
-
+# Esta clase desciende de la clase Model e implementa los metodos 
+# "init()" y "receive()", que en la clase madre se definen como abstractos
 class AlgoritmoHS(Model):
-  # Esta clase desciende de la clase Model e implementa los metodos 
-  # "init()" y "receive()", que en la clase madre se definen como abstractos
   contadorMensajes=0
   def init(self):
     # Aqui se definen e inicializan los atributos particulares del algoritmo
@@ -31,7 +30,7 @@ class AlgoritmoHS(Model):
     if  event.getName()[0] == "CANDIDATURA" :
        AlgoritmoHS.contadorMensajes += 1
        candidato_actual= event.getName()[1]
-       print("[", self.id, "]: Recibí la candidatura de ",candidato_actual, " en t = ", self.clock,"\n")
+       print("[", self.id, "]: Recibí la candidatura de ",candidato_actual, " proveniente de  ", nodoEmisor," en t = ", self.clock,"\n")
        self.distancia= event.getName()[2]
        self.distancia -=1
        
@@ -51,6 +50,7 @@ class AlgoritmoHS(Model):
              newevent = Event(ganadorRonda, self.clock + 1.0, proximoSucesor, self.id)
              self.transmit(newevent)
        elif (self.id == candidato_actual and not self.electoLanzado):
+          print ("[", self.id,"]: ¡Es mi candidatura! Avisaré a todos los nodos  \n")
           self.electoLanzado = True
           electo=["ELECTO", self.id, None]
           #Se envia por el lado contrario
@@ -58,6 +58,7 @@ class AlgoritmoHS(Model):
           newevent = Event (electo, self.clock + 1.0, proximoSucesor, self.id)
           self.transmit(newevent)
     elif event.getName()[0] == "GANADOR_RONDA":
+     AlgoritmoHS.contadorMensajes += 1
      ganador_actual= event.getName()[1]
      print ("[", self.id,"]: *Recibí el ganador de la ronda: ", ganador_actual," proveniente de  ", nodoEmisor, " en t = ", self.clock,"\n")
      if(self.id == ganador_actual):
@@ -71,6 +72,7 @@ class AlgoritmoHS(Model):
        newevent = Event (ganadorRonda, self.clock + 1.0, proximoSucesor, self.id)
        self.transmit(newevent)
     elif event.getName()[0] == "ELECTO":
+      AlgoritmoHS.contadorMensajes += 1
       self.ronda=-1
       self.lider = event.getName()[1]
       print ("[", self.id,"]: El lider es: ", self.lider,  ", t = ",self.clock,"\n")
